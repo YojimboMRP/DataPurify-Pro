@@ -52,7 +52,21 @@ if uploaded_file:
             df_cleaned = df.drop_duplicates().dropna(how='all')
             final_count = len(df_cleaned)
             
-            st.success(f"Done! We found and removed {initial_count - final_count} redundant rows.")
+            # --- NUEVA LÓGICA DE VALOR AÑADIDA ---
+            rows_removed = initial_count - final_count
+            # Estimamos que limpiar cada fila manual toma unos 2 segundos
+            time_saved_seconds = rows_removed * 2 
+            
+            if rows_removed > 0:
+                st.success(f"Done! We found and removed {rows_removed} redundant rows.")
+                if time_saved_seconds > 60:
+                    st.info(f"💡 You just saved approximately {time_saved_seconds // 60} minutes of boring manual work!")
+                else:
+                    st.info(f"💡 You just saved about {time_saved_seconds} seconds. Speed is power!")
+            else:
+                st.success("Your data is already clean! No duplicates found.")
+                st.info("💡 Your dataset is in perfect shape for production.")
+            # ---------------------------------------
             
             # Download button
             csv = df_cleaned.to_csv(index=False).encode('utf-8')
