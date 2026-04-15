@@ -37,3 +37,7 @@ if uploaded_file:
         )
 
 st.sidebar.info("Esta herramienta es gratuita. Considera apoyarnos viendo un anuncio o compartiéndola.")
+
+st.sidebar.markdown('---')
+st.sidebar.write("¿Te ahorré tiempo?")
+st.sidebar.markdown("[☕ Invítame a un café](TU_LINK_AQUI)")
